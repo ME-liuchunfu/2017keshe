@@ -16,6 +16,9 @@ import xin.spring.library.bean.Book;
 import xin.spring.library.constant.SQLConstant;
 import xin.spring.library.dao.LibraryDBDao;
 
+/**
+ * 查找书籍
+ */
 public class SearchBookActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,View.OnClickListener{
 
     private ListView lvBook;

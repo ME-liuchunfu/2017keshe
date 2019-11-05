@@ -25,12 +25,7 @@ import xin.spring.library.dao.LibraryDBDao;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link SearchFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link SearchFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * 自定义搜索fragment
  */
 public class SearchFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
@@ -48,10 +43,8 @@ public class SearchFragment extends Fragment {
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment SearchFragment.
+     *  工厂模式实例化
+     * @return
      */
     public static SearchFragment newInstance() {
         SearchFragment fragment = new SearchFragment();
@@ -103,7 +96,6 @@ public class SearchFragment extends Fragment {
 
     /**
      * 点击选择出版时间
-     *
      */
     public void onClickPublicationTime() {
         String publicationDateStr = bookDateEditText.getText().toString();
@@ -178,18 +170,8 @@ public class SearchFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 

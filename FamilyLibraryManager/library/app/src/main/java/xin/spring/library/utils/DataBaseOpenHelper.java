@@ -13,12 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Description: 数据库工具类
- * Created by zouyulong on 2017/4/24.
- * Student number:121
- * Person in charge :  zouyulong
+ * 数据库工具类
  */
-
 public class DataBaseOpenHelper extends SQLiteOpenHelper implements Serializable {
     private static Map<String, DataBaseOpenHelper> dbMaps = new HashMap<String, DataBaseOpenHelper>();
     private OnSqliteUpdateListener onSqliteUpdateListener;
@@ -38,11 +34,9 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper implements Serializable
     /**
      * @param @param  context
      * @param @param  userId
-     * @param @return
      * @return DataBaseOpenHelper
      * @Title: getInstance
      * @Description: 获取数据库实例
-     * @author lihy
      */
     public static DataBaseOpenHelper getInstance(Context context, String dbName, int dbVersion, List<String> tableSqls) {
         DataBaseOpenHelper dataBaseOpenHelper = dbMaps.get(dbName);
@@ -68,10 +62,8 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper implements Serializable
     /**
      * @param @param sql
      * @param @param bindArgs
-     * @return void
      * @Title: execSQL
      * @Description: Sql写入
-     * @author lihy
      */
     public void execSQL(String sql, Object[] bindArgs) {
         DataBaseOpenHelper dataBaseOpenHelper = dbMaps.get(nowDbName);
@@ -84,11 +76,8 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper implements Serializable
     /**
      * @param @param  sql查询
      * @param @param  bindArgs
-     * @param @return
      * @return Cursor
      * @Title: rawQuery
-     * @Description:
-     * @author lihy
      */
     public Cursor rawQuery(String sql, String[] bindArgs) {
         DataBaseOpenHelper dataBaseOpenHelper = dbMaps.get(nowDbName);
@@ -103,10 +92,8 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper implements Serializable
      * @param @param table
      * @param @param contentValues 设定文件
      * @return void 返回类型
-     * @throws
      * @Title: insert
      * @Description: 插入数据
-     * @author lihy
      */
     public boolean insert(String table, ContentValues contentValues) {
         DataBaseOpenHelper dataBaseOpenHelper = dbMaps.get(nowDbName);
@@ -124,7 +111,6 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper implements Serializable
      * @param @param whereClause
      * @param @param whereArgs 设定文件
      * @return void 返回类型
-     * @throws
      * @Title: update
      * @Description: 更新
      */
@@ -143,7 +129,6 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper implements Serializable
      * @return void
      * @Title: delete
      * @Description:删除
-     * @author lihy
      */
     public void delete(String table, String whereClause, String[] whereArgs) {
         DataBaseOpenHelper dataBaseOpenHelper = dbMaps.get(nowDbName);
@@ -161,10 +146,8 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper implements Serializable
      * @param @param groupBy
      * @param @param having
      * @param @param orderBy
-     * @return void
      * @Title: query
      * @Description: 查
-     * @author lihy
      */
     public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having,
                         String orderBy) {
@@ -189,9 +172,6 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper implements Serializable
      * @param limit
      * @return Cursor
      * @Description:查
-     * @exception:
-     * @author: lihy
-     * @time:2015-4-3 上午9:37:29
      */
     public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having,
                         String orderBy, String limit) {
@@ -206,10 +186,8 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper implements Serializable
     }
 
     /**
-     * @param @return
      * @return Cursor
      * @Description 查询，方法重载,table表名，sqlString条件
-     * @author lihy
      */
     public Cursor query(String tableName, String sqlString) {
         DataBaseOpenHelper dataBaseOpenHelper = dbMaps.get(nowDbName);

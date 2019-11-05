@@ -17,12 +17,8 @@ import xin.spring.library.constant.SQLConstant;
 import xin.spring.library.utils.DataBaseOpenHelper;
 
 /**
- * Description: 图书dao类
- * Created by zouyulong on 2017/4/24.
- * student number:121
- * Person in charge :  zouyulong
+ * 图书dao类
  */
-
 public class LibraryDBDao implements Serializable {
     public static final int SEARCHTYPE_ID = 1;
 
@@ -61,7 +57,6 @@ public class LibraryDBDao implements Serializable {
 
     /**
      * 添加一本书
-     *
      * @param book
      */
     public boolean addBook(Book book) {
@@ -81,8 +76,6 @@ public class LibraryDBDao implements Serializable {
 
     /**
      * 查询所有图书列表
-     *
-     * @param
      */
     public List<Book> queryAllBookList() {
         Cursor results = getDataBaseHelper().query(SQLConstant.TABLE_BOOK,
@@ -95,10 +88,8 @@ public class LibraryDBDao implements Serializable {
 
     /**
      * 更新图书信息
-     *
      * @param id
      * @param book
-     * @return
      */
     public void updateBookInfo(String id, Book book) {
         ContentValues values = new ContentValues();
@@ -115,7 +106,6 @@ public class LibraryDBDao implements Serializable {
 
     /**
      * 查询图书列表
-     *
      * @param columnName 字段名称，可选如下： SQLConstant.TABLE_BOOK,
      *                   SQLConstant.KEY_ID, SQLConstant.KEY_BOOK_NAME,
      *                   SQLConstant.KEY_AUTHOR, SQLConstant.KEY_BORROWER,
@@ -162,7 +152,6 @@ public class LibraryDBDao implements Serializable {
 
     /**
      * 删除一本书
-     *
      * @param id
      */
     public void removeBook(int id) {
@@ -179,9 +168,7 @@ public class LibraryDBDao implements Serializable {
 
     /**
      * 转化游标为Book对象
-     *
      * @param cursor
-     * @return
      */
     private List<Book> convertToBookList(Cursor cursor) {
         int resultCounts = cursor.getCount();
@@ -206,9 +193,7 @@ public class LibraryDBDao implements Serializable {
 
     /**
      * 转化游标为Book对象
-     *
      * @param cursor
-     * @return
      */
     private Book convertToBook(Cursor cursor) {
         int resultCounts = cursor.getCount();

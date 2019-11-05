@@ -1,12 +1,8 @@
 package xin.spring.library.constant;
 
 /**
- * Description: 数据库常量类
- * Created by zouyulong on 2017/4/24.
- * student number:121
- * Person in charge :  zouyulong
+ * 数据库常量类
  */
-
 public class SQLConstant {
     public static final String DB_NAME = "library.db";//数据库名称
     public static final String TABLE_BOOK = "bookinfo";//数据表名称

@@ -25,11 +25,7 @@ import xin.spring.library.listener.OnFragmentInteractionListener;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
- * Use the {@link InputFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * 自定义输入框fragment
  */
 public class InputFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
@@ -45,10 +41,8 @@ public class InputFragment extends Fragment {
     private LibraryDBDao mDao;
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment InputFragment.
+     *  工厂模式实例化
+     * @return
      */
     public static InputFragment newInstance() {
         InputFragment fragment = new InputFragment();
@@ -133,7 +127,6 @@ public class InputFragment extends Fragment {
 
     /**
      * 点击确认
-     *
      */
     public void onClickInput() {
         if(!checkNotNull()){
@@ -158,7 +151,6 @@ public class InputFragment extends Fragment {
 
     /**
      * 点击选择出版时间
-     *
      */
     public void onClickPublicationTime() {
         String publicationDateStr = bookDateEditText.getText().toString();
@@ -190,7 +182,6 @@ public class InputFragment extends Fragment {
 
     /**
      * 检测edittext文本是否为非空
-     * @return
      */
     private boolean checkNotNull(){
         boolean isNotNull = true;
@@ -217,7 +208,6 @@ public class InputFragment extends Fragment {
 
     /**
      * 构建book对象
-     * @return
      */
     private Book makeBook(){
         Book book = new Book();

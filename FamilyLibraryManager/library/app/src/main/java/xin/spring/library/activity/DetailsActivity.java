@@ -25,9 +25,8 @@ import static xin.spring.library.R.id.bookPriceEditText;
 import static xin.spring.library.R.id.bookTypeEditText;
 
 /**
- * Created by linmaosheng on 2017/5/6.
+ * 详情
  */
-
 public class DetailsActivity extends AppCompatActivity {
     LibraryDBDao mDao;
     private TextView dateEdit;
@@ -67,12 +66,9 @@ public class DetailsActivity extends AppCompatActivity {
                     updateBook(intent);
                     finish();
                 }
-
                 // 返回刷新上一页???
-
             }
         });
-
         // 删除
         Button removeButton = (Button) findViewById(R.id.removeButton);
         removeButton.setOnClickListener(new View.OnClickListener() {
@@ -80,9 +76,7 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = getIntent();
                 removeBook();
-
                 // 返回刷新上一页???
-
                 finish();
             }
         });

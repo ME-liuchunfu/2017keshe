@@ -16,7 +16,7 @@
         android:id="@+id/bottomTabBar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#5fb39d"
+        android:background="#fff"
         android:orientation="horizontal">
         <RadioButton
             android:id="@+id/tabBar_firstBtn"
@@ -26,7 +26,7 @@
             android:background="@android:color/transparent"
             android:button="@null"
             android:gravity="center"
-            android:textColor="#ffffff"
+            android:textColor="#666"
             android:textSize="18dp"
             android:text="录入图书"
             android:onClick="tabBarInputButtonClicked"/>
@@ -38,7 +38,7 @@
             android:background="@android:color/transparent"
             android:button="@null"
             android:gravity="center"
-            android:textColor="#ffffff"
+            android:textColor="#666"
             android:textSize="18dp"
             android:text="图书列表"
             android:onClick="tabBarListButtonClicked"/>
@@ -50,7 +50,7 @@
             android:background="@android:color/transparent"
             android:button="@null"
             android:gravity="center"
-            android:textColor="#ffffff"
+            android:textColor="#666"
             android:textSize="18dp"
             android:text="搜索图书"
             android:onClick="tabBarSearchButtonClicked"/>

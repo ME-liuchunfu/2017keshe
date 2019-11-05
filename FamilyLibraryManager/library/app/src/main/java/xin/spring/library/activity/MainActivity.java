@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
-
 import xin.spring.library.fragment.InputFragment;
 import xin.spring.library.fragment.ListFragment;
 import xin.spring.library.listener.OnFragmentInteractionListener;
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         // 设置默认显示的fragment
         this.fragmentManager.beginTransaction().replace(R.id.fragmentContainer , this.inputFragment).commit();
         RadioButton inputButton = (RadioButton)findViewById(R.id.tabBar_firstBtn);
-        inputButton.setTextColor(Color.parseColor("#1b3afb"));
+        inputButton.setTextColor(Color.parseColor("#5fb39d"));
     }
 
     @Override
@@ -49,25 +48,23 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
             mDao.destoryDB();
     }
 
+    /**
+     * 如果菜单存在，设置自定义菜单
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -77,11 +74,11 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     public void tabBarInputButtonClicked(View view) {
         // 修改按钮字体颜色
         RadioButton button = (RadioButton) view;
-        button.setTextColor(Color.parseColor("#1b3afb"));
+        button.setTextColor(Color.parseColor("#5fb39d"));
         RadioButton listButton = (RadioButton)findViewById(R.id.tabBar_secondBtn);
-        listButton.setTextColor(Color.parseColor("#ffffff"));
+        listButton.setTextColor(Color.parseColor("#666666"));
         RadioButton searchButton = (RadioButton)findViewById(R.id.tabBar_thirdBtn);
-        searchButton.setTextColor(Color.parseColor("#ffffff"));
+        searchButton.setTextColor(Color.parseColor("#666666"));
         // 切换fragment
         this.fragmentManager.beginTransaction().replace(R.id.fragmentContainer , this.inputFragment).commit();
     }
@@ -91,11 +88,11 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     public void tabBarListButtonClicked(View view) {
         // 修改按钮字体颜色
         RadioButton currentButton = (RadioButton)view;
-        currentButton.setTextColor(Color.parseColor("#1b3afb"));
+        currentButton.setTextColor(Color.parseColor("#5fb39d"));
         RadioButton inputButton = (RadioButton)findViewById(R.id.tabBar_firstBtn);
-        inputButton.setTextColor(Color.parseColor("#ffffff"));
+        inputButton.setTextColor(Color.parseColor("#666666"));
         RadioButton searchButton = (RadioButton)findViewById(R.id.tabBar_thirdBtn);
-        searchButton.setTextColor(Color.parseColor("#ffffff"));
+        searchButton.setTextColor(Color.parseColor("#666666"));
         // 切换fragment
         this.fragmentManager.beginTransaction().replace(R.id.fragmentContainer , this.listFragment).commit();
     }
@@ -105,11 +102,11 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     public void tabBarSearchButtonClicked(View view) {
         // 修改按钮字体颜色
         RadioButton currentButton = (RadioButton)view;
-        currentButton.setTextColor(Color.parseColor("#1b3afb"));
+        currentButton.setTextColor(Color.parseColor("#5fb39d"));
         RadioButton inputButton = (RadioButton)findViewById(R.id.tabBar_firstBtn);
-        inputButton.setTextColor(Color.parseColor("#ffffff"));
+        inputButton.setTextColor(Color.parseColor("#666666"));
         RadioButton listButton = (RadioButton)findViewById(R.id.tabBar_secondBtn);
-        listButton.setTextColor(Color.parseColor("#ffffff"));
+        listButton.setTextColor(Color.parseColor("#666666"));
         // 切换fragment
         this.fragmentManager.beginTransaction().replace(R.id.fragmentContainer , this.searchFragment).commit();
     }

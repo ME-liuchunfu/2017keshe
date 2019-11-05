@@ -12,10 +12,10 @@ import java.util.List;
 import xin.spring.library.R;
 import xin.spring.library.bean.Book;
 
-/**
- * Created by admin on 2017/4/28.
- */
 
+/**
+ * 是匹配器
+ */
 public class BookAdapter extends BaseAdapter {
 
     private List<Book> bookList;
@@ -47,9 +47,7 @@ public class BookAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null){
-            convertView =
-                    //View.inflate(context, R.layout.fragment_search_list_item ,null);
-                    layoutInflater.inflate(R.layout.fragment_search_list_item,parent,false);
+            convertView = layoutInflater.inflate(R.layout.fragment_search_list_item,parent,false);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         }else {

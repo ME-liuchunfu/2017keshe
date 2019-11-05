@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 参考设计模式设计的工具类
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
  * <p>

@@ -1,13 +1,8 @@
 package xin.spring.library.bean;
 
 /**
- * Description: 图书bean类
- * Created by zouyulong on 2017/4/24.
- * student number:121
- * Person in charge :  zouyulong
+ * 图书bean类
  */
-
-
 public class Book {
 
     private String id;
