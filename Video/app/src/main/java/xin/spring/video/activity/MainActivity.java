@@ -35,6 +35,7 @@ import xin.spring.video.adapter.VideoRecyclerAdapter;
 import xin.spring.video.aip.AppApi;
 import xin.spring.video.bean.Video;
 import xin.spring.video.bean.VideoResult;
+import xin.spring.video.event.DateEvent;
 import xin.spring.video.event.MessageEvent;
 import xin.spring.video.utils.AppSimgleUtils;
 import xin.spring.video.view.AutoSwipeRefreshLayout;
@@ -49,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
     private VideoResult result = new VideoResult();
     private VideoRecyclerAdapter mAdapter;
     private AutoSwipeRefreshLayout mSwipeRefreshLayout;
+    private LoadRecyclerView recyclerView;
+
+    private boolean isToLast = false;//判断是否是垂直向下方向滑动
+    private LinearLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,21 +76,47 @@ public class MainActivity extends AppCompatActivity {
         //swipeRefreshLayout.post();
         //swipeRefreshLayout.autoRefresh();
         // 设置适配器
-        LoadRecyclerView recyclerView = (LoadRecyclerView)findViewById(R.id.main_recycler_view);
-        LinearLayoutManager layoutManager  = new LinearLayoutManager(this);
+        recyclerView = (LoadRecyclerView)findViewById(R.id.main_recycler_view);
+        layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
         mAdapter = new VideoRecyclerAdapter(videos, this);
         recyclerView.setAdapter(mAdapter);
-        load();
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+//                RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+                // 当不滚动时(看需求，滚动的时候也可以加上)
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    //获取最后一个完全显示的ItemPosition
+                    int lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();//从0开始
+                    int totalItemCount = layoutManager.getItemCount();
+                    // 判断是否滚动到底部，并且是向下滚动
+                    if (lastVisibleItem == (totalItemCount - 1) && isToLast ) {
+                        //加载更多功能的代码
+                        System.out.println("到最后一个item了");
+                        //load();
+                        timer = 10;
+                        EventBus.getDefault().post(new DateEvent(10, 1));
+                    }
+                }
+            }
 
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                isToLast = dy > 0;
+            }
+        });
+        load();
     }
 
     /**
      * 首次加载数据
      */
     private void load(){
-       OkGo.<String>get(AppApi.LIST_URL + 41)
+       OkGo.<String>get(AppApi.getList(result, 41))
             .tag(this).headers(AppSimgleUtils.registerHttpHeaders())
             .cacheKey(MainActivity.class.getSimpleName())
             .cacheMode(CacheMode.NO_CACHE)
@@ -93,23 +124,74 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(Response<String> response) {
                     System.out.println(response.body());
-                    EventBus.getDefault().post(new MessageEvent(response.body()));
+                    EventBus.getDefault().post(new MessageEvent(response.body(), 1));
                     System.out.println("请求完了");
                 }
 
             });
     }
 
+    private void loadMore(){
+        OkGo.<String>get(AppApi.getList(result, 41))
+                .tag(this).headers(AppSimgleUtils.registerHttpHeaders())
+                .cacheKey(MainActivity.class.getSimpleName())
+                .cacheMode(CacheMode.NO_CACHE)
+                .execute(new StringCallback(){
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        System.out.println(response.body());
+                        EventBus.getDefault().post(new MessageEvent(response.body(), 2));
+                        System.out.println("请求完了");
+                    }
+
+                });
+    }
+
+    private int timer = 0;
+
+    private boolean loaded = false;
+
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void handleTime(DateEvent dateEvent){
+        if(!loaded){
+            loadMore();
+        }
+        Toast.makeText(getApplicationContext(), "加载中。。。", Toast.LENGTH_LONG).show();
+        if (dateEvent.getType() == 1 && timer >= 1) {
+            loaded = true;
+            //timer = dateEvent.getTime();
+            while (timer > 1) {
+                try {
+                    Thread.sleep(1000);
+                    timer--;
+                    System.out.println("当前：" + timer);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            timer = 0;
+            loaded = false;
+        }
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void handleData(MessageEvent mMessageEvent) {
         Toast.makeText(this, "数据请求成功", Toast.LENGTH_SHORT).show();
         Gson gson = new Gson();
-        VideoResult result = gson.fromJson(mMessageEvent.getMessage(), VideoResult.class);
-        videos.clear();
-        if(result != null && result.getList() != null){
-            videos.addAll(result.getList());
-            mAdapter.notifyDataSetChanged();
+        result = gson.fromJson(mMessageEvent.getMessage(), VideoResult.class);
+        if(mMessageEvent.getType() == 1){
+            videos.clear();
+            if(result != null && result.getList() != null){
+                videos.addAll(result.getList());
+                System.out.println("个数："+ result.getList().size() + ", 总个数：" + videos.size());
+            }
+        }else if(mMessageEvent.getType() == 2){
+            if(result != null && result.getList() != null){
+                videos.addAll(result.getList());
+                System.out.println("个数："+ result.getList().size() + ", 总个数：" + videos.size());
+            }
         }
+        mAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
@@ -117,38 +199,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         JCVideoPlayer.releaseAllVideos();
-    }
-
-    public void onEventMainThread(VideoEvents event) {
-        if (event.type == VideoEvents.POINT_START_ICON) {
-            Log.i("Video Event", "POINT_START_ICON" + " title is : " + event.obj + " url is : " + event.obj1);
-        } else if (event.type == VideoEvents.POINT_START_THUMB) {
-            Log.i("Video Event", "POINT_START_THUMB" + " title is : " + event.obj + " url is : " + event.obj1);
-        } else if (event.type == VideoEvents.POINT_STOP) {
-            Log.i("Video Event", "POINT_STOP" + " title is : " + event.obj + " url is : " + event.obj1);
-        } else if (event.type == VideoEvents.POINT_STOP_FULLSCREEN) {
-            Log.i("Video Event", "POINT_STOP_FULLSCREEN" + " title is : " + event.obj + " url is : " + event.obj1);
-        } else if (event.type == VideoEvents.POINT_RESUME) {
-            Log.i("Video Event", "POINT_RESUME" + " title is : " + event.obj + " url is : " + event.obj1);
-        } else if (event.type == VideoEvents.POINT_RESUME_FULLSCREEN) {
-            Log.i("Video Event", "POINT_RESUME_FULLSCREEN" + " title is : " + event.obj + " url is : " + event.obj1);
-        } else if (event.type == VideoEvents.POINT_CLICK_BLANK) {
-            Log.i("Video Event", "POINT_CLICK_BLANK" + " title is : " + event.obj + " url is : " + event.obj1);
-        } else if (event.type == VideoEvents.POINT_CLICK_BLANK_FULLSCREEN) {
-            Log.i("Video Event", "POINT_CLICK_BLANK_FULLSCREEN" + " title is : " + event.obj + " url is : " + event.obj1);
-        } else if (event.type == VideoEvents.POINT_CLICK_SEEKBAR) {
-            Log.i("Video Event", "POINT_CLICK_SEEKBAR" + " title is : " + event.obj + " url is : " + event.obj1);
-        } else if (event.type == VideoEvents.POINT_CLICK_SEEKBAR_FULLSCREEN) {
-            Log.i("Video Event", "POINT_CLICK_SEEKBAR_FULLSCREEN" + " title is : " + event.obj + " url is : " + event.obj1);
-        } else if (event.type == VideoEvents.POINT_AUTO_COMPLETE) {
-            Log.i("Video Event", "POINT_AUTO_COMPLETE" + " title is : " + event.obj + " url is : " + event.obj1);
-        } else if (event.type == VideoEvents.POINT_AUTO_COMPLETE_FULLSCREEN) {
-            Log.i("Video Event", "POINT_AUTO_COMPLETE_FULLSCREEN" + " title is : " + event.obj + " url is : " + event.obj1);
-        } else if (event.type == VideoEvents.POINT_ENTER_FULLSCREEN) {
-            Log.i("Video Event", "POINT_ENTER_FULLSCREEN" + " title is : " + event.obj + " url is : " + event.obj1);
-        } else if (event.type == VideoEvents.POINT_QUIT_FULLSCREEN) {
-            Log.i("Video Event", "POINT_QUIT_FULLSCREEN" + " title is : " + event.obj + " url is : " + event.obj1);
-        }
     }
 
     @Override

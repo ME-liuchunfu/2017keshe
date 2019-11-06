@@ -43,7 +43,7 @@ public class VideoRecyclerAdapter extends RecyclerView.Adapter<VideoRecyclerAdap
     public void onBindViewHolder(VideoViewHolder holder, int position) {
         Video video = videos.get(position);
         //holder.topIcon == picasso
-        if(null != video.getProfile_image()){
+        if(null != video.getProfile_image() && !"".equals(video.getProfile_image())){
             picasso.load(video.getProfile_image()).transform(new CircleTransform()).into(holder.topIcon);
         }else{
             picasso.load(R.drawable.v_icon).transform(new CircleTransform()).into(holder.topIcon);

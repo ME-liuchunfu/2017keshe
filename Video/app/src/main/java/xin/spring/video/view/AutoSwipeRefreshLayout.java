@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
  */
 public class AutoSwipeRefreshLayout extends SwipeRefreshLayout {
     public AutoSwipeRefreshLayout(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public AutoSwipeRefreshLayout(Context context, AttributeSet attrs) {

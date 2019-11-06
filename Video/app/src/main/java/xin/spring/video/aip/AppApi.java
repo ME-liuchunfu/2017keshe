@@ -1,5 +1,7 @@
 package xin.spring.video.aip;
 
+import xin.spring.video.bean.VideoResult;
+
 /**
  * app api接口
  */
@@ -26,6 +28,13 @@ public class AppApi {
     public static final String PAGE_KEY = "&page=";
 
     public static final String MAXTIME_KEY = "&maxtime=";
+
+    public static String getList(VideoResult result, int type){
+        if(result != null && result.getInfo() != null){
+            return LIST_URL + type + PAGE_KEY + result.getInfo().getPage() + MAXTIME_KEY + result.getInfo().getMaxtime();
+        }
+        return LIST_URL;
+    }
 
     /**
      * 评论列表http://api.budejie.com/api/api_open.php?a=dataList&c=comment&data_id=22062938&hot=1
