@@ -9,6 +9,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Environment;
 import android.widget.ImageView;
 
+import com.ixuea.android.downloader.DownloadService;
+import com.ixuea.android.downloader.callback.DownloadManager;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;

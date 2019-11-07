@@ -1,19 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <xin.spring.video.view.AutoSwipeRefreshLayout
-        android:id="@+id/swipe_container"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <xin.spring.video.view.LoadRecyclerView
-            android:id="@+id/main_recycler_view"
+        <xin.spring.video.view.AutoSwipeRefreshLayout
+            android:id="@+id/swipe_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </xin.spring.video.view.AutoSwipeRefreshLayout>
+            android:layout_height="match_parent">
+            <xin.spring.video.view.LoadRecyclerView
+                android:id="@+id/main_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </xin.spring.video.view.AutoSwipeRefreshLayout>
 
+<!--        <LinearLayout-->
+<!--            android:visibility="gone"-->
+<!--            android:id="@+id/lv_main_tip"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:orientation="vertical"-->
+<!--            android:background="@color/biz_audio_progress_first"-->
+<!--            android:gravity="center">-->
+<!--            <ProgressBar-->
+<!--                android:layout_gravity="center"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"/>-->
+<!--            <TextView-->
+<!--                android:id="@+id/tv_main_tip"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:textColor="@color/biz_audio_progress_second"-->
+<!--                android:text="加载中..."/>-->
+<!--        </LinearLayout>-->
+
+    </RelativeLayout>
 </LinearLayout>

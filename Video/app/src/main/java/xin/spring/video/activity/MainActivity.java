@@ -1,7 +1,11 @@
 package xin.spring.video.activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -43,7 +48,7 @@ import xin.spring.video.view.LoadRecyclerView;
 import xin.spring.video.view.SimpleDividerItemDecoration;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private List<Video> videos = new ArrayList<Video>();
 
@@ -65,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
          * if you do not want to get Buried Point , you do not need regist eventbus here
          */
         EventBus.getDefault().register(this);
+        verifyStoragePermissions(this);
         mSwipeRefreshLayout = (AutoSwipeRefreshLayout)findViewById(R.id.swipe_container);
         mSwipeRefreshLayout.setRefreshing(false);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -73,8 +79,6 @@ public class MainActivity extends AppCompatActivity {
                load();
             }
         });
-        //swipeRefreshLayout.post();
-        //swipeRefreshLayout.autoRefresh();
         // 设置适配器
         recyclerView = (LoadRecyclerView)findViewById(R.id.main_recycler_view);
         layoutManager = new LinearLayoutManager(this);
@@ -112,11 +116,23 @@ public class MainActivity extends AppCompatActivity {
         load();
     }
 
+    //动态获取内存存储权限
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 200);
+        }
+    }
+
     /**
      * 首次加载数据
      */
     private void load(){
-       OkGo.<String>get(AppApi.getList(result, 41))
+        OkGo.<String>get(AppApi.getList(result, 41))
             .tag(this).headers(AppSimgleUtils.registerHttpHeaders())
             .cacheKey(MainActivity.class.getSimpleName())
             .cacheMode(CacheMode.NO_CACHE)
@@ -206,4 +222,5 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
 }

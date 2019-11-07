@@ -3,56 +3,133 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
+    android:layout_marginBottom="20dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:layout_marginBottom="20dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
         android:layout_gravity="left"
-        android:gravity="left">
+        android:gravity="left"
+        android:orientation="horizontal">
+
         <ImageView
-            android:layout_marginTop="10dp"
             android:id="@+id/v_i_t"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/v_icon"
-            android:gravity="left"/>
+            android:layout_marginTop="10dp"
+            android:gravity="left"
+            android:src="@drawable/v_icon" />
+
         <TextView
             android:id="@+id/v_t_t"
-            android:layout_marginLeft="5dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="三界之外"
-            android:textSize="18sp"
-            android:singleLine="true"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="三界之外"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
         <TextView
             android:id="@+id/v_tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="RecyclerView是Android一个更强大的控件,其不仅可以实现和ListView同样的效果,还有优化了ListView中的各种不足。其可以实现数据纵向滚动,也可以实现横向滚动(ListView做不到横向滚动)。接下来讲解RecyclerView的用法。" />
+            android:text="RecyclerView是Android一个更强大的控件,其不仅可以实现和ListView同样的效果,还有优化了ListView中的各种不足。其可以实现数据纵向滚动,也可以实现横向滚动(ListView做不到横向滚动)。接下来讲解RecyclerView的用法。"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp">
+        android:layout_height="220dp">
+
         <fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
             android:id="@+id/v_jcp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/iv_main_good"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_good" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/iv_main_lower"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_lower" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/iv_main_message"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_message" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/iv_main_share"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_share" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

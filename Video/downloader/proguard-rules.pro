@@ -1,6 +1,6 @@
 # Add project specific ProGuard rules here.
 # By default, the flags in this file are appended to flags specified
-# in /Users/Nathen/WorkEnv/android-sdk-macosx/tools/proguard/proguard-android.txt
+# in /Users/ixuea(http://a.ixuea.com/3)/Library/Android/sdk/tools/proguard/proguard-android.txt
 # You can edit the include path and order by changing the proguardFiles
 # directive in build.gradle.
 #
@@ -15,14 +15,3 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
-
-#okhttp
--dontwarn okhttp3.**
--keep class okhttp3.**{*;}
-
-#okio
--dontwarn okio.**
--keep class okio.**{*;}
-
-
--keep public class * implements com.ixuea.android.downloader.db.DownloadDBController

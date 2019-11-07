@@ -7,4 +7,6 @@ public class AppConstrant {
 
     public static final String CACHE_DIR = "/jiecao/cache";
 
+    public static final String APP_DIR = "xvideo";
+
 }
